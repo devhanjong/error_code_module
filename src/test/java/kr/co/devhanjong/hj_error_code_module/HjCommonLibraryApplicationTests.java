@@ -5,8 +5,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest(classes = UpCommonLibraryApplicationTests.class)
-class UpCommonLibraryApplicationTests {
+@SpringBootTest(classes = HjCommonLibraryApplicationTests.class)
+class HjCommonLibraryApplicationTests {
 
     @Test
     @DisplayName("@SpringBootApplication이 없어도 " +

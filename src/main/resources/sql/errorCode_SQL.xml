@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.co.devhanjong.hj_error_code_module.base.errorCode.repository.ErrorCodeMapper">
+    <select id="getErrorCodeBaseByCode"
+            resultType="kr.co.devhanjong.hj_error_code_module.base.errorCode.domain.ErrorCodeBaseDTO">
+        SELECT   code, http_status, msg
+        FROM     code_error_definition
+        WHERE    code = #{code}
+    </select>
+
+    <select id="getErrorCodeDetailByCode"
+            resultType="kr.co.devhanjong.hj_error_code_module.base.errorCode.domain.ErrorCodeDetailDTO">
+        SELECT   code, http_status, msg, memo, reg_date, mod_date
+        FROM     code_error_definition
+        WHERE    code = #{code}
+    </select>
+
+    <insert id="insertErrorCode"
+            parameterType="kr.co.devhanjong.hj_error_code_module.base.errorCode.domain.ErrorCodeDetailDTO">
+        INSERT INTO code_error_definition (code, http_status, msg, reg_date
+        <if test='memo != null'>,memo</if>)
+        VALUES (#{code}, #{httpStatus}, #{msg}, NOW()
+        <if test='memo != null'>,#{memo}</if>
+        )
+    </insert>
+
+    <update id="updateErrorCode"
+            parameterType="kr.co.devhanjong.hj_error_code_module.base.errorCode.domain.ErrorCodeDetailDTO">
+        UPDATE code_error_definition
+        SET
+        mod_date = NOW()
+        <if test='httpStatus != null'>     ,http_status = #{httpStatus}     </if>
+        <if test='msg != null'>            ,msg = #{msg}                    </if>
+        <if test='memo != null'>           ,memo = #{memo}                  </if>
+        WHERE
+        code = #{code};
+    </update>
+
+    <delete id="deleteErrorCode"
+            parameterType="kr.co.devhanjong.hj_error_code_module.base.errorCode.domain.ErrorCodeBaseDTO">
+        DELETE FROM code_error_definition
+        WHERE code = #{code};
+    </delete>
+</mapper>
